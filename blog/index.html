@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Clan — Блог для разработчиков</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Анимированный фон: частицы и градиентные пятна -->
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-orbs">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+
+    <!-- Прогресс-бар чтения -->
+    <div class="reading-progress-bar" id="reading-progress"></div>
+
+    <!-- Шапка -->
+    <header>
+        <nav>
+            <div class="nav-left">
+                <div class="logo">
+                    <h1 data-page="home">🖥️ IT Clan</h1>
+                </div>
+            </div>
+            
+            <!-- Поиск -->
+            <div class="search-container">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Поиск статей..." class="search-input">
+                <button class="search-clear" id="searchClear">&times;</button>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#" data-page="home" class="active">Главная</a></li>
+                <li><a href="#" data-page="posts">Все статьи</a></li>
+                <li><a href="#" data-page="resources">Ресурсы</a></li>
+                <li><a href="#" data-page="about">О блоге</a></li>
+                <li><a href="#" data-page="profile">Профиль</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <!-- Переключатель темы -->
+                <button class="theme-toggle" id="themeToggle" title="Сменить тему">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <!-- Избранное -->
+                <button class="favorites-btn" id="favoritesBtn" title="Избранное">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="badge" id="favorites-badge">0</span>
+                </button>
+
+                <!-- Мобильное меню -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Боковая панель избранного -->
+    <aside class="favorites-sidebar" id="favorites-sidebar">
+        <div class="favorites-sidebar-header">
+            <h3>❤️ Избранное</h3>
+            <button class="close-sidebar" id="closeFavorites">&times;</button>
+        </div>
+        <div class="favorites-list" id="favoritesList"></div>
+    </aside>
+
+    <!-- Затемнение фона -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Основной контент -->
+    <main id="app">
+        <!-- Контент загружается динамически -->
+    </main>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-top-btn" id="scrollTopBtn" title="Наверх">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🖥️ IT Clan</h3>
+                <p>Сообщество разработчиков. Статьи о программировании, дизайне и технологиях.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Категории</h3>
+                <ul class="footer-categories" id="footerCategories"></ul>
+            </div>
+            <div class="footer-section">
+                <h3>Статистика</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalPosts">0</span>
+                        <span class="stat-label">Статей</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalCategories">0</span>
+                        <span class="stat-label">Категорий</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IT Clan. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Уведомления -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
